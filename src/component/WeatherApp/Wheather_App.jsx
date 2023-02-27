@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 
 const Wheather = () => {
-    const [weather_data, setWeatherData] = useState([])
+    const [weather_data, setWeatherData] = useState(null)
     const [search, setSearch] = useState("")
+    const [yes, setyes] = useState(true)
+    // const []
     useEffect(() => {
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=55c09104f85830eee3e8b8ee0f804dca`).then((res) => {
             return res.json()
@@ -13,7 +15,7 @@ const Wheather = () => {
         })
     }, [search])
     console.log(weather_data)
-   return (
+    return (
         <>
             <div style={{ backgroundColor: "aliceblue", "width": "800px", "height": "700px", "border": "1px solid black", margin: "40px auto" }}>
                 <h2>Weather App</h2>
