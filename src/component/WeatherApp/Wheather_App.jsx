@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 
 const Wheather = () => {
     const [weather_data, setWeatherData] = useState([])
-    // const [History, setHistory] = useState("")
     const [search, setSearch] = useState("")
     useEffect(() => {
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=55c09104f85830eee3e8b8ee0f804dca`).then((res) => {
@@ -13,8 +12,8 @@ const Wheather = () => {
             console.log(e)
         })
     }, [search])
-
-    return (
+    console.log(weather_data)
+   return (
         <>
             <div style={{ backgroundColor: "aliceblue", "width": "800px", "height": "700px", "border": "1px solid black", margin: "40px auto" }}>
                 <h2>Weather App</h2>
@@ -25,7 +24,7 @@ const Wheather = () => {
                     <div>
                         {weather_data.map((items, i) => {
                             return (
-                                <div style={{ width: "350px", height: "auto", border: "1px solid black", backgroundColor: "black", margin: "10px auto", "color": "White" }}  key={i}>
+                                <div style={{ width: "350px", height: "auto", border: "1px solid black", backgroundColor: "black", margin: "10px auto", "color": "White" }} key={i}>
                                     <p><b> Weather Details of City</b> : {items.name}</p>
                                     <p><b>Current Temparature:</b>  {items.cod - 173} &deg;C</p>
                                     <p><b>Temparature Range:</b>  {items.cod - 180} &deg;C to {items.cod - 170} &deg;C</p>
