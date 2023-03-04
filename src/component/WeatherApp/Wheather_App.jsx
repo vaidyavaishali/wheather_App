@@ -1,50 +1,86 @@
 import { useEffect, useState } from "react"
 
 const Wheather = () => {
-    const [weather_data, setWeatherData] = useState(null)
+    const [weather_data, setWeatherData] = useState([])
     const [search, setSearch] = useState("")
-    const [yes, setyes] = useState(true)
+    const [isvalid, setValid] = useState(true)
+    const [lastCity, setLastCity] = useState([])
     // const []
-    useEffect(() => {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=55c09104f85830eee3e8b8ee0f804dca`).then((res) => {
-            return res.json()
-        }).then((data) => {
-            setWeatherData([data])
-        }).catch((e) => {
-            console.log(e)
-        })
-    }, [search])
-    console.log(weather_data)
-    return (
-        <>
-            <div style={{ backgroundColor: "aliceblue", "width": "800px", "height": "700px", "border": "1px solid black", margin: "40px auto" }}>
-                <h2>Weather App</h2>
-                <input type="text" placeholder="Enter a City name" onChange={(e) => { setSearch(e.target.value) }} style={{ margin: "40px auto", width: "300px", height: "35px", padding: "5px", textAlign: "center" }} />
-                {!search ?
-                    <p style={{ fontSize: "30px" }}>Enter Valid City</p>
-                    :
-                    <div>
-                        {weather_data.map((items, i) => {
-                            return (
-                                <div style={{ width: "350px", height: "auto", border: "1px solid black", backgroundColor: "black", margin: "10px auto", "color": "White" }} key={i}>
-                                    <p><b> Weather Details of City</b> : {items.name}</p>
-                                    <p><b>Current Temparature:</b>  {items.cod - 173} &deg;C</p>
-                                    <p><b>Temparature Range:</b>  {items.cod - 180} &deg;C to {items.cod - 170} &deg;C</p>
-                                    <p><b>Humidity:</b>  {items.cod - 156}</p>
-                                    <p><b> Sea-level: </b>{items.visibility - 1008}</p>
-                                    <p><b> Ground-Level: </b>{items.visibility - 1907}</p>
-                                </div>
-                            )
-                        })
-                        }
-                    </div>
+    const Weather_Search = () => {
+        // let search = e.target.value
+        if (search === "") {
+            setValid(true)
+            setWeatherData([])
+        } else {
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=1193086c4eb1889bea40ec2ad676b791`).then((res) => {
+                return res.json()
+            }).then((data) => {
+                if (data.cod === 200) {
+                    setValid(true)
+                    setWeatherData([data])
+                    if (lastCity.length === 3) {
+                        lastCity.push(search)
+                        lastCity.shift()
+                        setLastCity([...lastCity])
+                    } else {
+                        lastCity.push(search)
+                        setLastCity([...lastCity])
+                    }
+                } else {
+                    setValid(false)
+                    setWeatherData([])
                 }
 
+            }).catch((e) => {
+                console.log(e)
+            })
+        }
+        // console.log(search)
+
+    }
+
+    console.log(weather_data)
+
+    return (
+        <>
+            <div className="main-container">
+            <div className="inner-div">
+               
+                <input type="text" placeholder="Enter City name" id="search" onChange={(e) => { setSearch(e.target.value) }} />
+                {/* <input type="text" placeholder="Enter City name" id="search" onChange={(e) => { Weather_Search(e) }} /> */}
+                <button onClick={Weather_Search} className="btn">Search</button>
+                {!isvalid ? <h2 style={{color:"red", margin:"auto"}}>Enter a Valid City</h2> :
+                    weather_data.map((items, i) => {
+                        return (
+                            <div key={i} className="city-details">
+                                <p>Weather Details of City:{items.name}</p>
+                                <p>Current Temperature: {items.main.temp}</p>
+                                <p>Minimum Temparature : {items.main.temp_min}</p>
+                                <p>Maximum Temparature : {items.main.temp_max}</p>
+                                <p>Humidity: {items.main.humidity}</p>
+                                <p>Sea level: {items.timezone}</p>
+                                <p>Ground level: {items.visibility}</p>
+
+                            </div>
+                        )
+
+                    })} 
+                </div>
+                
+                <div className="lastcities">
+                    <h2 style={{color:"black"}}>Last 3 Cities are</h2>
+                    {lastCity.map((items, i) => {
+                        return (
+
+                            <div key={i} className="cities">
+                                {/* <p>Last 3 Cities</p> */}
+
+                                <p>{items}</p>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
-
-
-
-
 
         </>
     )

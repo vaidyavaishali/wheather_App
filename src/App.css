@@ -1,38 +1,58 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.main-container {
+  background-color: rgb(214, 215, 237);
+  margin: 10px auto;
+  width: 50vw;
+  height: 80vh;
+  
+  box-shadow: 5px 5px 5px 5px #ccc;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#search {
+  width: 20vw;
+  height: 5vh;
+  /* float: right; */
+  /* margin: 0px px 0 0; */
+  margin: 20px auto;
+}
+
+.btn {
+  width: 5vw;
+  height: 5.5vh;
+  /* float: right; */
+  margin: 40px auto;
+}
+
+.city-details {
+  background-color: rgb(218, 248, 248);
+  width: 18vw;
+  height: auto;
+  /* float: right; */
+  margin: 40px auto;
+  /* margin: auto; */
+  text-align: center;
+  padding: 6px;
+  box-shadow: 5px 5px 5px 5px #ccc;
+}
+
+.lastcities {
+  color: rgb(22, 23, 23);
+  /* background-color: rgb(37, 104, 162); */
+  float: left;
+  margin: 90px 10px 0px 80px;
+}
+
+.inner-div {
+  float: right;
+  padding: 10px;
+
+
 }
